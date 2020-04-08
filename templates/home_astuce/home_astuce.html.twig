@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}Les plats{% endblock %}
+{% block body %}
+
+    <div class="container" >
+        <div class="mt-3">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} mt-10">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <form action="{{ path('search_astuce') }}" method="POST" style="margin-top: 20px;" >
+            <fieldset>
+                <div class="input-group">
+
+                    <select id="" name="type" class=" bg-default text-secondary text-bg form-control">
+                        <option value="selectionner" selected="selected">Catégorie</option>
+                        {% for astuce in astuces %}
+                            <option value="{{ astuce.type }}">{{ astuce.type }}</option>
+                        {% endfor %}
+
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit">Filtrer</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        {% if astuces|length == 0  %}
+            <h6 class="my-3">Aucune astuce trouvé <a href="{{ path('search_astuce') }}" class="text-secondary"></a></h6>
+        {% else %}
+            <h6 class="my-3">Voici les astuces</h6>
+        {% endif %}
+
+        <div class="row">
+            {% for astuce in astuces%}
+                <div class="col-md-4">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header text-center">
+                            <strong> {{ astuce.type }}</strong><br>
+                            <small>{{ astuce.createdAt| date('d/m/Y ' ) }}</small>
+                        </div>
+                        <img class="mx-auto d-block" src="{{ asset('img/astuce1.png' ) }}" alt="image"
+                             style="height: 200px; width:100%; display:block">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {{ astuce.name }}
+                            </h4>
+                            <p class="card-text">
+                                {{ astuce.description|striptags|slice(0, 175)|raw }}{% if astuce.description|length>175 %}...{% endif %}
+                            </p>
+                            <a href="{{ path('view_astuce', {'id':astuce.id }) }}" class="btn btn-secondary">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

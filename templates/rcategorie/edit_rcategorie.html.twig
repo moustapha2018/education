@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie Recette!{% endblock %}
+
+{% block body %}
+    <div class="dashboard-content-one">
+        <!-- Breadcubs Area Start Here -->
+        <div class="breadcrumbs-area">
+            <h3>Categorie recette</h3>
+            <ul>
+                <li>Acueil</li>
+                <li>
+                    <a href="{{ path('rcategorie') }}">Les Categorie</a>
+                </li>
+                <li>Modification categorie</li>
+            </ul>
+        </div>
+        <!-- the formStart Here -->
+        <div class="card height-auto">
+            <div class="card-body">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mt-10">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="heading-layout1">
+                    <div class="item-title">
+                        <h4>Modifier une categorie </h4>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle float-right" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">...</a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ path('home') }}"><i
+                                        class="fas fa-times text-orange-red"></i>Quitter</a>
+                            <a class="dropdown-item" href="{{ path('edit_rcategorie', {'id': rcategorie.id}) }}) }}"><i
+                                        class="fas fa-redo-alt text-orange-peel"></i>Actualiser</a>
+                            <a class="dropdown-item" href="{{ path('rcategorie') }}"><i
+                                        class="fas fa-eye text-dark-pastel-green"></i>Voir les categories</a>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form(form) }}
+            </div>
+        </div>
+        <!-- and the form-->
+    </div>
+
+
+{% endblock %}

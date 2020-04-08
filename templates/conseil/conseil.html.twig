@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conseils!{% endblock %}
+
+{% block body %}
+    <div class="dashboard-content-one">
+        <!-- Breadcubs Area Start Here -->
+
+        <div class="breadcrumbs-area">
+            <h3>Conseil</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('home') }}">Accueil</a>
+                </li>
+                <li>Ajouter un conseil</li>
+            </ul>
+        </div>
+
+        <!-- the formStart Here -->
+        <div class="card height-auto">
+            <div class="card-body">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mt-10">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="heading-layout1">
+                    <div class="item-title">
+                        <h4>Ajouter un conseil</h4>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle float-right" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">...</a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ path('home') }}"><i
+                                        class="fas fa-times text-orange-red"></i>Quitter</a>
+                            <a class="dropdown-item" href="{{ path('conseil') }}"><i
+                                        class="fas fa-redo-alt text-orange-peel"></i>Actualiser</a>
+                        </div>
+                    </div>
+                </div>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+
+            <div class="container-fluid">
+                <h4><span class="glyphicon glyphicon-th-list"> </span> Listes des conseils</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Catégorie</th>
+                            <th scope="col">Ajouté par</th>
+                            <th scope="col"><span class="glyphicon glyphicon-calendar"> </span> Dates d'ajout</th>
+                            <th scope="col"><span class="glyphicon glyphicon-cog"></span> Actions </th>
+                        </tr>
+                        </thead>
+
+                        {% for conseil in conseils %}
+                            <tbody>
+                            <tr>
+                                <td>{{ conseil.name }}</td>
+                                <td>{{ conseil.Ccategorie.name }}</td>
+                                <td>{{ conseil.createdBy.firstName  }}</td>
+                                <td>{{ conseil.createdAt| date('d/m/Y ' ) }}</td>
+                                <td>
+                                    <a href="{{ path('edit_conseil', {'id': conseil.id}) }}" class="btn btn-warning"><strong class="glyphicon glyphicon-pencil"> Modifier</strong></a>
+                                    <a href="{{ path('delete_conseil', {'id': conseil.id}) }}" class="btn btn-danger"> <strong class="glyphicon glyphicon-remove"> Supprimer</strong></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- and the form-->
+
+
+    </div>
+
+
+{% endblock %}

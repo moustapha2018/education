@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block title %}Les plats{% endblock %}
+{% block body %}
+
+<div class="container" >
+    <div class="mt-3">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mt-10">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <form action="{{ path('search_recette') }}" method="POST" style="margin-top: 20px;" >
+        <fieldset>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <select id="speciality" name="speciality" class=" bg-secondary text-light">
+                        <option value="selectionner" selected="selected" >Spécialité</option>
+                        <option value="Africain" >Africain</option>
+                        <option value="Europeen">Europeen</option>
+                        <option value="Asiatique">Asiatique</option>
+                        <option value="Générale">Générale</option>
+                        <option value="toutes">Toutes</option>
+                    </select>
+                </div>
+                <select id="" name="rcategorie" class=" bg-default text-secondary form-control">
+                    <option value="selectionner" selected="selected">Catégorie</option>
+                    {% for rcategorie in rcategories %}
+                        <option value="{{ rcategorie.id }}">{{ rcategorie.name }}</option>
+                    {% endfor %}
+                    <option value="toutes">Toutes</option>
+
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-secondary " type="submit">Filter</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    {% if recettes|length == 0  %}
+        <h6 class="my-3">Aucune recette trouvée <a href="{{ path('search_recette') }}" class="text-secondary">retour</a></h6>
+    {% else %}
+        <h6 class="my-3">Voici les recettes</h6>
+    {% endif %}
+    <div class="row">
+        {% for recette in recettes%}
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        {{ recette.Rcategorie.name }}/<strong>{{recette.speciality}}</strong><br>
+                        <small>{{ recette.createdAt| date('d/m/Y ' ) }}</small>
+                    </div>
+                    <img class="mx-auto d-block" src="{{ asset('uploads/recettes/'~ recette.image ) }}" alt="image dd"
+                         style="height: 200px; width:100%; display:block">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {{ recette.name }}
+                            {% if recette.link is not null  %}
+                                <a href="{{ recette.link }}" target="_blank" class="text-secondary float-right">
+                                    <span class="fas fa-eye"></span>Youtube
+                                </a>
+                            {% endif %}
+                        </h4>
+                        <p class="card-text">
+                            {{ recette.description|striptags|slice(0, 175)|raw }}{% if recette.description|length>175 %}...{% endif %}
+                        </p>
+                        <a href="{{ path('view_recette', {'id':recette.id }) }}" class="btn btn-secondary">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

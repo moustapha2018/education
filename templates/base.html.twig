@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <meta charset="utf-8">
+            <meta http-equiv="x-ua-compatible" content="ie=edge">
+            <title>AKKHOR | Home 1</title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- Favicon -->
+            <link rel="shortcut icon" type="image/x-icon" href=" {{ asset('login/img/favicon.png')}} ">
+            <!-- Normalize CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/normalize.css')}} ">
+
+            <!-- Main CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/main.css')}} ">
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/bootstrap.min.css')}} ">
+            <!-- Fontawesome CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/all.min.css')}} ">
+            <!-- Flaticon CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/fonts/flaticon.css')}} ">
+            <!-- Full Calender CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/fullcalendar.min.css')}} ">
+            <!-- Animate CSS -->
+            <link rel="stylesheet" href=" {{ asset('login/css/animate.min.css')}} ">
+            <!-- Custom CSS -->
+            <link rel="stylesheet" href="{{ asset('login/css/style.css')}} ">
+            <link rel="stylesheet" href="{{ asset('login/css/styleApp.css')}} ">
+            <!-- Modernize js -->
+            <script src=" {{ asset('login/js/modernizr-3.6.0.min.js')}} "></script>
+
+        {% endblock %}
+    </head>
+    <body>
+    {% set user  = app.session.get('user') %}
+    {# % set currentSchoolGroup  = app.session.get('schoolGroup') % #}
+        <div id="preloader"></div>
+        <!-- Preloader End Here -->
+        <div id="wrapper" class="wrapper bg-ash">
+            {% block header  %}
+                {% include 'configuration/header.html.twig' %}
+            {% endblock %}
+            {% block body %}{% endblock %}
+        </div>
+
+        </div>
+
+        {% block javascripts %}
+            <!-- jquery-->
+
+            <script src=" {{ asset('login/js/jquery-3.3.1.min.js')}} "></script>
+            <!-- Plugins js -->
+            <script src=" {{ asset('login/js/plugins.js')}} "></script>
+            <!-- Popper js -->
+            <script src=" {{ asset('login/js/popper.min.js')}} "></script>
+            <!-- Bootstrap js -->
+            <script src=" {{ asset('login/js/bootstrap.min.js')}} "></script>
+            <!-- Counterup Js -->
+            <script src=" {{ asset('login/js/jquery.counterup.min.js')}} "></script>
+            <!-- Moment Js -->
+            <script src=" {{ asset('login/js/moment.min.js')}} "></script>
+            <!-- Waypoints Js -->
+            <script src=" {{ asset('login/js/jquery.waypoints.min.js')}} "></script>
+            <!-- Scroll Up Js -->
+            <script src=" {{ asset('login/js/jquery.scrollUp.min.js')}} "></script>
+            <!-- Full Calender Js -->
+            <script src=" {{ asset('login/js/fullcalendar.min.js')}} "></script>
+            <!-- Chart Js -->
+            <script src=" {{ asset('login/js/Chart.min.js')}} "></script>
+            <!-- Custom Js -->
+            <script src=" {{ asset('login/js/main.js')}} "></script>
+        {% endblock %}
+    </body>
+</html>

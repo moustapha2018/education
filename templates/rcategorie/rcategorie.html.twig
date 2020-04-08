@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie Recette!{% endblock %}
+
+{% block body %}
+    <div class="dashboard-content-one">
+        <!-- Breadcubs Area Start Here -->
+
+        <div class="breadcrumbs-area">
+            <h3>Categorie recette</h3>
+            <ul>
+                <li>
+                    <a href="{{ path('home') }}">Accueil</a>
+                </li>
+                <li>Ajouter une categorie</li>
+            </ul>
+        </div>
+
+        <!-- the formStart Here -->
+        <div class="card height-auto">
+            <div class="card-body">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mt-10">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="heading-layout1">
+                    <div class="item-title">
+                        <h4>Ajouter une categorie des recettes</h4>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle float-right" href="#" role="button" data-toggle="dropdown"
+                           aria-expanded="false">...</a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ path('home') }}"><i
+                                        class="fas fa-times text-orange-red"></i>Quitter</a>
+                            <a class="dropdown-item" href="{{ path('rcategorie') }}"><i
+                                        class="fas fa-redo-alt text-orange-peel"></i>Actualiser</a>
+                        </div>
+                    </div>
+                </div>
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+
+            <div class="container-fluid">
+                <h4><span class="glyphicon glyphicon-th-list"> </span> Listes des categories</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Ajouté par</th>
+                            <th scope="col"><span class="glyphicon glyphicon-calendar"> </span> Dates d'ajout</th>
+                            <th scope="col"><span class="glyphicon glyphicon-cog"></span> Actions </th>
+                        </tr>
+                        </thead>
+
+                        {% for rcategorie in rcategories %}
+                            <tbody>
+                            <tr>
+                                <td>{{ rcategorie.name }}</td>
+                                <td>{{ rcategorie.createdBy.firstName  }}</td>
+                                <td>{{ rcategorie.createdAt| date('d/m/Y h:m:s' ) }}</td>
+                                <td>
+                                    <a href="{{ path('edit_rcategorie', {'id': rcategorie.id}) }}" class="btn btn-warning"><strong class="glyphicon glyphicon-pencil"> Modifier</strong></a>
+                                    <a href="{{ path('delete_rcategorie', {'id': rcategorie.id}) }}" class="btn btn-danger"> <strong class="glyphicon glyphicon-remove"> Supprimer</strong></a>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+                        {% endfor %}
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- and the form-->
+
+
+    </div>
+
+
+{% endblock %}

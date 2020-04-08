@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}La contact{% endblock %}
+{% block body %}
+
+    <div class="container" >
+        <div class="mt-3">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} mt-10">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <h6 class="my-3">Detail du profile</h6>
+        {% if user is defined and user is not null %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header text-center">
+
+                            {{user.firstName}}/<strong>{{user.lastName}}</strong> <br>
+                            <small>{{ user.login }}</small>
+
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                Changer le mot de passer
+                            </h4>
+                            <form action="{{ path('change_pwd') }}" method = "POST" class="login-form">
+                                <div class="form-group">
+                                    <label>Ancien mot de passe</label>
+                                    <input type="text" placeholder="Votre ancien mot de passe" name="lastpwd" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nouveau Mot de passe</label>
+                                    <input type="password" placeholder="Enter votre mot de passe" class="form-control" name="newpwd">
+                                </div>
+                                <div class="form-group d-flex align-items-center justify-content-between">
+                                    <smal><small>{{ user.login }}</small> </smal>
+                                    <a href="#" class="forgot-btn">Mot de passe oublié ?</a>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-secondary">Valider</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

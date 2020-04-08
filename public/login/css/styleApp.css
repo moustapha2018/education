@@ -1,0 +1,6 @@
+label.required:before {
+    content: "*";
+    color: #e32;
+    font-size: 20px;
+    position: static;
+}
